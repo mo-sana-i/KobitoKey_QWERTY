@@ -1,37 +1,88 @@
 manifest:
   remotes:
-    - name: zmkfirmware
-      url-base: https://github.com/zmkfirmware
-    - name: badjeff
-      url-base: https://github.com/badjeff
-    - name: hsgw
-      url-base: https://github.com/hsgw
-    - name: caksoylar  # <-- led
-      url-base: https://github.com/caksoylar  
+    - name: cormoran
+      url-base: https://github.com/cormoran
+    - name: caksoylar
+      url-base: https://github.com/caksoylar
 
   projects:
-    # ZMK 本体。公式の app/west.yml を取り込む
+    # ===== Custom Studio Protocol 対応 ZMK / Zephyr =====
     - name: zmk
-      remote: zmkfirmware
-      revision: v0.3
-      import: app/west.yml
+      remote: cormoran
+      revision: main+dya
+      import:
+        file: app/west.yml
+    - name: zephyr
+      remote: cormoran
+      revision: v4.1.0+zmk-fixes+nrf-half-duplex-uart
+      clone-depth: 1
+      import:
+        name-blocklist:
+          - ci-tools
+          - hal_altera
+          - hal_cypress
+          - hal_infineon
+          - hal_microchip
+          - hal_nxp
+          - hal_openisa
+          - hal_xtensa
+          - hal_st
+          - hal_ti
+          - loramac-node
+          - mcuboot
+          - mcumgr
+          - net-tools
+          - openthread
+          - edtt
+          - trusted-firmware-m
 
-    # PMW3610 ドライバ（外部モジュール）
-    - name: zmk-pmw3610-driver
-      remote: badjeff
-      revision: zmk-0.3
-      # 置き場所を明示したい場合は path を指定（任意）
-      # path: modules/zmk-pmw3610-driver
-    
-    # Sensor-rotation
-    - name: zmk-feature-sensor_rotation
-      remote: hsgw
+    # ===== コアモジュール =====
+    - name: zmk-feature-custom-settings
+      remote: cormoran
+      revision: main
+    - name: zmk-feature-fast-keymap
+      remote: cormoran
       revision: main
 
-    # LED
-    - name: zmk-rgbled-widget  # <-- led
+    # ===== Keymap / Macro / Combo =====
+    - name: zmk-feature-runtime-macro
+      remote: cormoran
+      revision: main
+    - name: zmk-feature-runtime-combo
+      remote: cormoran
+      revision: main
+    - name: zmk-feature-module-physical-layout
+      remote: cormoran
+      revision: main
+
+    # ===== Trackball =====
+    - name: zmk-driver-pmw3610-with-custom-studio-rpc
+      remote: cormoran
+      revision: main
+    - name: zmk-module-runtime-input-processor
+      remote: cormoran
+      revision: main
+
+    # ===== Connection =====
+    - name: zmk-module-ble-management
+      remote: cormoran
+      revision: main
+    - name: zmk-feature-default-layer
+      remote: cormoran
+      revision: codex/custom-rpc-rewrite
+    - name: zmk-feature-os-detection
+      remote: cormoran
+      revision: main
+
+    # ===== Settings =====
+    - name: zmk-module-settings-rpc
+      remote: cormoran
+      revision: main
+
+    # ===== LED（既存流用）=====
+    - name: zmk-rgbled-widget
       remote: caksoylar
-      revision: v0.3
-      
+      revision: main   # ★main+dya(ZMK main系)に合わせmainへ。v0.3では不整合の恐れ
+
   self:
     path: config
