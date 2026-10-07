@@ -3,3 +3,10 @@ config SHIELD_KOBITOKEY_LEFT
 
 config SHIELD_KOBITOKEY_RIGHT
     def_bool $(shields_list_contains,KobitoKey_right)
+
+# --- DYA Studio 派生 ---
+config SHIELD_KOBITOKEY_LEFT_DYA
+    def_bool $(shields_list_contains,KobitoKey_left_dya)
+
+config SHIELD_KOBITOKEY_RIGHT_DYA
+    def_bool $(shields_list_contains,KobitoKey_right_dya)
