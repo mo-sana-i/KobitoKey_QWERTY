@@ -1,11 +1,17 @@
-# 左（central）
+# 左（central / stock）
 if SHIELD_KOBITOKEY_LEFT
 config ZMK_KEYBOARD_NAME
     default "KobitoKey"
 endif
 
-# 左右共通
-if SHIELD_KOBITOKEY_LEFT || SHIELD_KOBITOKEY_RIGHT
+# 左（central / DYA）
+if SHIELD_KOBITOKEY_LEFT_DYA
+config ZMK_KEYBOARD_NAME
+    default "KobitoKeyDYA"
+endif
+
+# 左右共通（stock + DYA）
+if SHIELD_KOBITOKEY_LEFT || SHIELD_KOBITOKEY_RIGHT || SHIELD_KOBITOKEY_LEFT_DYA || SHIELD_KOBITOKEY_RIGHT_DYA
 config ZMK_SPLIT
     default y
 config ZMK_POINTING
