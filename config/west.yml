@@ -79,10 +79,10 @@ manifest:
       remote: cormoran
       revision: main
 
-    # ===== LED（既存流用）=====
+    # ===== LED =====
     - name: zmk-rgbled-widget
       remote: caksoylar
-      revision: main   # ★main+dya(ZMK main系)に合わせmainへ。v0.3では不整合の恐れ
+      revision: main
 
   self:
     path: config
